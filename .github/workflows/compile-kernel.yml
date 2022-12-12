@@ -13,7 +13,7 @@ on:
       kernel_repo:
         description: "Select the kernel repository"
         required: false
-        default: "kernel.org"
+        default: "unifreq"
         type: choice
         options:
           - unifreq
@@ -40,7 +40,7 @@ on:
       kernel_package:
         description: "Select compile package list"
         required: false
-        default: "all"
+        default: "dtbs"
         type: choice
         options:
           - all
