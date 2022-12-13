@@ -20,7 +20,7 @@ on:
       armbian_board:
         description: "Select Box Board."
         required: false
-        default: "all"
+        default: "s905d_s912"
         type: choice
         options:
           - all
@@ -51,7 +51,7 @@ on:
       armbian_kernel:
         description: "Select kernel version."
         required: false
-        default: "5.15.80_6.0.10"
+        default: "5.15.80"
         type: choice
         options:
           - 5.4.225_5.10.155_5.15.80
@@ -125,7 +125,7 @@ jobs:
           # Compile method and parameter description: https://docs.armbian.com/Developer-Guide_Build-Options
           cd build/
           sudo ./compile.sh RELEASE=${{ env.ARMBIAN_RELEASE }} BOARD=odroidn2 BRANCH=current BUILD_DESKTOP=no HOST=armbian EXPERT=no \
-                            BUILD_MINIMAL=yes BUILD_EXTERNAL=no EXTERNAL=no KERNEL_ONLY=no KERNEL_CONFIGURE=no CLEAN_LEVEL=make,debs COMPRESS_OUTPUTIMAGE="sha" EXTRAWIFI=no WIREGUARD=no AUFS=no SKIP_BOOTSPLASH=yes 
+                            BUILD_MINIMAL=yes BUILD_EXTERNAL=no KERNEL_ONLY=no KERNEL_CONFIGURE=no CLEAN_LEVEL=make,debs COMPRESS_OUTPUTIMAGE="sha" 
           echo "build_tag=Armbian_${{ env.ARMBIAN_RELEASE }}_$(date +"%m.%d.%H%M")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
@@ -143,7 +143,7 @@ jobs:
             df -hT ${PWD}
 
       - name: Upload Armbian image to Release
-        uses: ncipollo/release-action@main
+        uses: Dannypod/release-action@main
         if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
         with:
           tag: ${{ steps.compile.outputs.build_tag }}
