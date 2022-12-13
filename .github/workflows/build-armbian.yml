@@ -24,6 +24,7 @@ on:
         type: choice
         options:
           - all
+          - s905d_s912
           - s922x_s905x3_s905d_s912_s905l3a
           - rock5b_r66s_r68s_beikeyun_l1pro
           - a311d
@@ -82,7 +83,7 @@ on:
       armbian_sign:
         description: "Set armbian custom name."
         required: false
-        default: ""
+        default: "Danny"
 
 env:
   TZ: America/New_York
