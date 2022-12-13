@@ -12,7 +12,7 @@ on:
       set_release:
         description: "Select OS Release."
         required: false
-        default: "bullseye"
+        default: "jammy"
         type: choice
         options:
           - jammy
@@ -20,11 +20,10 @@ on:
       armbian_board:
         description: "Select Box Board."
         required: false
-        default: "s905d_s912"
+        default: "all"
         type: choice
         options:
           - all
-          - s905d_s912
           - s922x_s905x3_s905d_s912_s905l3a
           - rock5b_r66s_r68s_beikeyun_l1pro
           - a311d
@@ -52,7 +51,7 @@ on:
       armbian_kernel:
         description: "Select kernel version."
         required: false
-        default: "5.15.80"
+        default: "5.15.80_6.0.10"
         type: choice
         options:
           - 5.4.225_5.10.155_5.15.80
@@ -83,7 +82,7 @@ on:
       armbian_sign:
         description: "Set armbian custom name."
         required: false
-        default: "Danny"
+        default: ""
 
 env:
   TZ: America/New_York
@@ -180,3 +179,4 @@ jobs:
             Default password: 1234
             Install command: armbian-install
             Update command: armbian-update
+
