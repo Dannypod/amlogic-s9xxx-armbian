@@ -13,7 +13,7 @@ on:
       kernel_repo:
         description: "Select the kernel repository"
         required: false
-        default: "unifreq"
+        default: "kernel.org"
         type: choice
         options:
           - unifreq
@@ -21,7 +21,7 @@ on:
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.15.80_6.0.10"
+        default: "5.15.80"
         type: choice
         options:
           - 5.4.225_5.10.155_5.15.80
@@ -40,7 +40,7 @@ on:
       kernel_package:
         description: "Select compile package list"
         required: false
-        default: "dtbs"
+        default: "all"
         type: choice
         options:
           - all
@@ -93,7 +93,7 @@ jobs:
           kernel_config: ${{ inputs.kernel_config }}
 
       - name: Upload Kernel to Release
-        uses: ncipollo/release-action@main
+        uses: Dannypod/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
