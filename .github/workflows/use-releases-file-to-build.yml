@@ -17,6 +17,8 @@ on:
         options:
           - jammy
           - bullseye
+          - lunar
+          - bookworm
       armbian_fstype:
         description: "Select armbian rootfs type."
         required: false
@@ -33,6 +35,7 @@ on:
         options:
           - all
           - s922x_s905x3_s905d_s912_s905l3a
+          - s905x-t95_s912-t95z-plus_s905l3-unt400g1
           - s905d
           - s905d-ki-pro
           - s905x
@@ -101,6 +104,7 @@ on:
           - s905x3-q1000
           - s905x3-a100
           - s905x3-2101
+          - s905x3-whale
           - s905x3-b
           - s905
           - s905-mxqpro-plus
@@ -124,6 +128,7 @@ on:
           - smart-am40
           - sw799
           - zysj
+          - mpc1903
           - beikeyun
           - l1pro
           - station-m1
@@ -215,7 +220,7 @@ jobs:
                               jq '.[]' |
                               jq -s --arg RTK "Armbian_${{ inputs.set_release }}_" '.[] | select(.tag_name | contains($RTK))' |
                               jq -s '.[].assets[] | {data:.updated_at, url:.browser_download_url}' |
-                              jq -s --arg BOARD "-trunk_" '.[] | select((.url | contains($BOARD)))' |
+                              jq -s --arg BOARD "-trunk_" '.[] | select((.url | contains($BOARD)) and (.url | endswith(".img.gz")))' |
                               jq -s 'sort_by(.data)|reverse[]' |
                               jq -s '.[0]' -c
                           )"
@@ -256,9 +261,10 @@ jobs:
           replacesArtifacts: true
           token: ${{ secrets.GH_TOKEN }}
           body: |
-            These are the Armbian OS image
-            * OS information
-            Default username: root
-            Default password: 1234
-            Install command: armbian-install
-            Update command: armbian-update
+            ### Armbian Image information
+            - Default username: root
+            - Default password: 1234
+            - Install command: armbian-install
+            - Update command: armbian-update
+            ### Armbian Image Verification
+            - sha256sum
