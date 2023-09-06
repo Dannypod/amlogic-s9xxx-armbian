@@ -239,8 +239,8 @@ jobs:
           # Compile method and parameter description: https://docs.armbian.com/Developer-Guide_Build-Options
           cd build/
               ./compile.sh RELEASE=${{ inputs.set_release }} BOARD=odroidn2 BRANCH=current BUILD_MINIMAL=yes \
-                           BUILD_ONLY=default HOST=armbian BUILD_DESKTOP=no EXPERT=yes KERNEL_CONFIGURE=no \
-                           COMPRESS_OUTPUTIMAGE="sha" SHARE_LOG=yes
+                           BUILD_ONLY=default HOST=armbian BUILD_DESKTOP=no EXPERT=no KERNEL_CONFIGURE=no \
+                           COMPRESS_OUTPUTIMAGE="gz" SHARE_LOG=yes EXTRAWIFI=no WIREGUARD=no BSPFREEZE=yes
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Organize files and clear space
